@@ -50,6 +50,25 @@ WebGLRenderingContext::WebGLRenderingContext(
 
   //Get display
   if (!HAS_DISPLAY) {
+
+    static const int MAX_DEVICES = 4;
+    EGLDeviceEXT eglDevs[MAX_DEVICES];
+    EGLint numDevices;
+
+    printf("Detected");
+
+    PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT = (PFNEGLQUERYDEVICESEXTPROC) eglGetProcAddress("eglQueryDevicesEXT");
+
+    eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
+
+    printf("Detected %d devices\n", numDevices);
+
+    //PFNEGLGETPLATFORMDISPLAYEXTPROC eglGetPlatformDisplayEXT = (PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
+
+    //eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[0], 0);
+
+
+
     DISPLAY = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if (DISPLAY == EGL_NO_DISPLAY) {
       state = GLCONTEXT_STATE_ERROR;
