@@ -10,7 +10,6 @@
 #include "nan.h"
 #include <v8.h>
 
-
 #define EGL_EGLEXT_PROTOTYPES
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
@@ -105,6 +104,7 @@ struct WebGLRenderingContext : public node::ObjectWrap {
   //Context validation
   static WebGLRenderingContext* ACTIVE;
   bool setActive();
+
 
   //Unpacks a buffer full of pixels into memory
   unsigned char* unpackPixels(
