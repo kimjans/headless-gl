@@ -1,8 +1,10 @@
+#define EGL_EGLEXT_PROTOTYPES
 #include <cstring>
 #include <vector>
 #include <iostream>
 
 #include "webgl.h"
+#include <EGL/eglext.h>
 
 bool                   WebGLRenderingContext::HAS_DISPLAY = false;
 EGLDisplay             WebGLRenderingContext::DISPLAY;
@@ -51,44 +53,17 @@ WebGLRenderingContext::WebGLRenderingContext(
   //Get display
   if (!HAS_DISPLAY) {
 
-    static const int MAX_DEVICES = 4;
+    static const int MAX_DEVICES = 10;
     EGLDeviceEXT eglDevs[MAX_DEVICES];
     EGLint numDevices;
 
-    printf("Detected");
+    PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT =
+        (PFNEGLQUERYDEVICESEXTPROC)
+            eglGetProcAddress("eglQueryDevicesEXT");
 
-    //PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT = (PFNEGLQUERYDEVICESEXTPROC) eglGetProcAddress("eglQueryDevicesEXT");
-    PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT = reinterpret_cast<PFNEGLQUERYDEVICESEXTPROC>(eglGetProcAddress("eglQueryDevicesEXT"));
-    if(!eglQueryDevicesEXT) { 
-         printf("ERROR: extension eglQueryDevicesEXT not available");
-    } 
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-
-    //EGL_EXT_device_query
-    //EGL: ClientExtensions=EGL_EXT_client_extensions EGL_EXT_platform_base EGL_ANGLE_platform_angle EGL_ANGLE_platform_angle_opengl EGL_KHR_client_get_all_proc_addresses 
-
-    printf("Detected %d devices\n", numDevices);
-
-    PFNEGLGETPLATFORMDISPLAYEXTPROC eglGetPlatformDisplayEXT = (PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
-    printf("EGL: ClientExtensions=%s\n", eglQueryString(EGL_NO_DISPLAY, EGL_EXTENSIONS));
-
-    //eglGetPlatformDisplayEXT(EGL_ANGLE_platform_angle_opengl, null,null );
-    //ExtensionIsSupported
-    //const char *client_exts = eglQueryString(EGL_NO_DISPLAY, EGL_EXTENSIONS);
-    //bool has_client_ext = client_exts && (getName(client_exts, "EGL_EXT_device_query") || getName(client_exts, "EGL_EXT_device_base"));
-
-    // if (!has_client_ext) {
-    //   printf("EGL_EXT_device_query not supported\n");
-    //   //piglit_report_result(PIGLIT_SKIP);
-    // }
-
-    // for( int i = 0 ; i < strlen(client_exts) ; i ++ ){
-    //   std::cout << client_exts[i] << std:endl;
-    // }
-    // std::cout << std::endl;
-
-    //eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[0], 0);
+    std::cout << numDevices << std::endl;
 
 
 
