@@ -72,8 +72,9 @@ WebGLRenderingContext::WebGLRenderingContext(
     //   std::cout << "attr" << attrib << std::endl;
     // }
 
-    //std::cout << "test" << std::endl;
+    std::cout << "gpu_device_index" << gpu_device_index << std::endl;
     //EGLDisplay eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[4], 0);
+    
     DISPLAY = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[gpu_device_index], 0);
 
     //DISPLAY = eglGetDisplay(EGL_DEFAULT_DISPLAY);
