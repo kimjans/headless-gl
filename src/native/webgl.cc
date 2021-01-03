@@ -13,9 +13,9 @@ WebGLRenderingContext* WebGLRenderingContext::CONTEXT_LIST_HEAD = NULL;
 
 const char* REQUIRED_EXTENSIONS[] = {
   "GL_OES_packed_depth_stencil",
-  "GL_ANGLE_instanced_arrays",
   NULL
 };
+//"GL_ANGLE_instanced_arrays",
 
 #define GL_METHOD(method_name) NAN_METHOD(WebGLRenderingContext:: method_name)
 
