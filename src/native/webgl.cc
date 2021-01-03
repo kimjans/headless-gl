@@ -49,16 +49,7 @@ WebGLRenderingContext::WebGLRenderingContext(
 
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-    std::cout << numDevices << std::endl;
-
     PFNEGLQUERYDEVICEATTRIBEXTPROC eglQueryDeviceAttribEXT = (PFNEGLQUERYDEVICEATTRIBEXTPROC)eglGetProcAddress("eglQueryDeviceAttribEXT");
-
-    if (eglQueryDeviceAttribEXT)
-    {
-      std::cout << "eglQueryDeviceAttribEXT" << std::endl;
-    }
-
-    std::cout << "test" << std::endl;
 
     PFNEGLGETPLATFORMDISPLAYEXTPROC eglGetPlatformDisplayEXT =
         (PFNEGLGETPLATFORMDISPLAYEXTPROC)
@@ -67,21 +58,21 @@ WebGLRenderingContext::WebGLRenderingContext(
     const char *extensions;
     PFNEGLQUERYDEVICESTRINGEXTPROC query_device_string = (PFNEGLQUERYDEVICESTRINGEXTPROC)eglGetProcAddress("eglQueryDeviceStringEXT");
 
-    for (int i = 0; i < numDevices; ++i)
-    {
-      const char *drm_device_file = query_device_string(eglDevs[i], EGL_EXTENSIONS); //EGL_DRM_DEVICE_FILE_EXT);
-      std::cout << i << std::endl;
-      if (drm_device_file)
-      {
-        std::cout << "has name" << drm_device_file << std::endl;
-      }
-      EGLAttrib attrib;
-      if (eglQueryDeviceAttribEXT(eglDevs[i], EGL_CUDA_DEVICE_NV, &attrib) == EGL_FALSE)
-        break;
-      std::cout << "attr" << attrib << std::endl;
-    }
+    // for (int i = 0; i < numDevices; ++i)
+    // {
+    //   const char *drm_device_file = query_device_string(eglDevs[i], EGL_EXTENSIONS); //EGL_DRM_DEVICE_FILE_EXT);
+    //   std::cout << i << std::endl;
+    //   if (drm_device_file)
+    //   {
+    //     std::cout << "has name" << drm_device_file << std::endl;
+    //   }
+    //   EGLAttrib attrib;
+    //   if (eglQueryDeviceAttribEXT(eglDevs[i], EGL_CUDA_DEVICE_NV, &attrib) == EGL_FALSE)
+    //     break;
+    //   std::cout << "attr" << attrib << std::endl;
+    // }
 
-    std::cout << "test" << std::endl;
+    //std::cout << "test" << std::endl;
     //EGLDisplay eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[4], 0);
     DISPLAY = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[gpu_device_index], 0);
 
