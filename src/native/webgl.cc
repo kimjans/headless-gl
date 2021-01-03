@@ -335,6 +335,8 @@ GL_METHOD(New)
   Nan::HandleScope();
 
   WebGLRenderingContext *instance = new WebGLRenderingContext(
+      Nan::To<int32_t>(info[0]).ToChecked() //device_number
+      ,
       Nan::To<int32_t>(info[0]).ToChecked() //Width
       ,
       Nan::To<int32_t>(info[1]).ToChecked() //Height
