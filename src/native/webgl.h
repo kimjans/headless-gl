@@ -87,6 +87,7 @@ struct WebGLRenderingContext : public node::ObjectWrap {
 
   //Constructor
   WebGLRenderingContext(
+    int gpu_device_index,
     int width,
     int height,
     bool alpha,

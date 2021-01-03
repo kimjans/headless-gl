@@ -20,6 +20,8 @@ function createContext (width, height, options) {
     return null
   }
 
+  const gpu_device_index = (options.gpuIndex !== undefined && !isNaN(options.gpuIndex)) ? options.gpuIndex : 0;
+
   const contextAttributes = new WebGLContextAttributes(
     flag(options, 'alpha', true),
     flag(options, 'depth', true),
@@ -37,6 +39,7 @@ function createContext (width, height, options) {
   let ctx
   try {
     ctx = new WebGLRenderingContext(
+      gpu_device_index,
       1,
       1,
       contextAttributes.alpha,
