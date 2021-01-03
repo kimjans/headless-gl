@@ -113,11 +113,8 @@ WebGLRenderingContext::WebGLRenderingContext(
       num_config != 1)
   {
     state = GLCONTEXT_STATE_ERROR;
-
-    std::cout << "error eglChooseConfig" << std::endl;
     return;
   }
-  std::cout << "start 2" << std::endl;
   //Create context
   EGLint contextAttribs[] = {
       EGL_CONTEXT_CLIENT_VERSION, 2,
@@ -125,26 +122,20 @@ WebGLRenderingContext::WebGLRenderingContext(
   context = eglCreateContext(DISPLAY, config, EGL_NO_CONTEXT, contextAttribs);
   if (context == EGL_NO_CONTEXT)
   {
-    std::cout << "error eglCreateContext" << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
-  std::cout << "start 3" << std::endl;
   EGLint surfaceAttribs[] = {
       EGL_WIDTH, (EGLint)width, EGL_HEIGHT, (EGLint)height, EGL_NONE};
   surface = eglCreatePbufferSurface(DISPLAY, config, surfaceAttribs);
   if (surface == EGL_NO_SURFACE)
   {
-
-    std::cout << "error eglCreatePbufferSurface" << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
-  std::cout << "start 4" << std::endl;
   //Set active
   if (!eglMakeCurrent(DISPLAY, surface, surface, context))
   {
-    std::cout << "error eglMakeCurrent" << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
@@ -154,33 +145,22 @@ WebGLRenderingContext::WebGLRenderingContext(
   registerContext();
   ACTIVE = this;
 
-  std::cout << "start 5" << std::endl;
-
   //Initialize function pointers
   initPointers();
-
-  std::cout << "start 6" << std::endl;
 
   //Check extensions
   const char *extensionString = (const char *)((glGetString)(GL_EXTENSIONS));
 
-  std::cout << "start 6.5" << extensionString << std::endl;
   //Load required extensions
   for (const char **rext = REQUIRED_EXTENSIONS; *rext; ++rext)
   {
     if (!strstr(extensionString, *rext))
     {
-
-      std::cout << "for in" << rext << std::endl;
       dispose();
-
-      std::cout << "error GLCONTEXT_STATE_ERROR" << std::endl;
       state = GLCONTEXT_STATE_ERROR;
       return;
     }
   }
-
-  std::cout << "start 7" << std::endl;
 
   //Select best preferred depth
   preferredDepth = GL_DEPTH_COMPONENT16;
@@ -192,8 +172,6 @@ WebGLRenderingContext::WebGLRenderingContext(
   {
     preferredDepth = GL_DEPTH_COMPONENT24_OES;
   }
-
-  std::cout << "NO ERROR" << std::endl;
 }
 
 bool WebGLRenderingContext::setActive()
