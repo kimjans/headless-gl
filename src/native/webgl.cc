@@ -71,7 +71,7 @@ WebGLRenderingContext::WebGLRenderingContext(
 
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-    std::cout << numDevices << std::end
+    std::cout << numDevices << std::end;
 
 
 
