@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/node_modules/nan/**",
+                "/Users/lw12203/.node-gyp/10.16.3/include/node"
+                // "/Users/lw12203/.node-gyp/10.16.3/deps/v8/include",
+                // "../node_modules/nan -I/Users/lw12203/work/headless-gl/deps/include",
+                // "../angle/include",
+                // "./Release/obj/gen/angle"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
