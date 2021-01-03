@@ -114,6 +114,8 @@ WebGLRenderingContext::WebGLRenderingContext(
       &num_config) ||
       num_config != 1) {
     state = GLCONTEXT_STATE_ERROR;
+
+    std::cout << "error eglChooseConfig"  << std::endl;
     return;
   }
 
@@ -124,6 +126,7 @@ WebGLRenderingContext::WebGLRenderingContext(
   };
   context = eglCreateContext(DISPLAY, config, EGL_NO_CONTEXT, contextAttribs);
   if (context == EGL_NO_CONTEXT) {
+    std::cout << "error eglCreateContext"  << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
@@ -135,6 +138,8 @@ WebGLRenderingContext::WebGLRenderingContext(
   };
   surface = eglCreatePbufferSurface(DISPLAY, config, surfaceAttribs);
   if (surface == EGL_NO_SURFACE) {
+
+    std::cout << "error eglCreatePbufferSurface"  << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
@@ -160,6 +165,8 @@ WebGLRenderingContext::WebGLRenderingContext(
   for(const char** rext = REQUIRED_EXTENSIONS; *rext; ++rext) {
     if(!strstr(extensionString, *rext)) {
       dispose();
+
+      std::cout << "error GLCONTEXT_STATE_ERROR"  << std::endl;
       state = GLCONTEXT_STATE_ERROR;
       return;
     }
@@ -172,6 +179,8 @@ WebGLRenderingContext::WebGLRenderingContext(
   } else if(strstr(extensionString, "GL_OES_depth24")) {
     preferredDepth = GL_DEPTH_COMPONENT24_OES;
   }
+
+  std::cout << "NO ERROR"  << std::endl;
 }
 
 bool WebGLRenderingContext::setActive() {
