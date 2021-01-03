@@ -94,6 +94,8 @@ WebGLRenderingContext::WebGLRenderingContext(
     HAS_DISPLAY = true;
   }
 
+  std::cout << "start 1"  << std::endl;
+
   //Set up configuration
   EGLint attrib_list[] = {
       EGL_SURFACE_TYPE, EGL_PBUFFER_BIT
@@ -118,7 +120,7 @@ WebGLRenderingContext::WebGLRenderingContext(
     std::cout << "error eglChooseConfig"  << std::endl;
     return;
   }
-
+  std::cout << "start 2"  << std::endl;
   //Create context
   EGLint contextAttribs[] = {
     EGL_CONTEXT_CLIENT_VERSION, 2,
@@ -130,7 +132,7 @@ WebGLRenderingContext::WebGLRenderingContext(
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
-
+  std::cout << "start 3"  << std::endl;
   EGLint surfaceAttribs[] = {
         EGL_WIDTH,  (EGLint)width
       , EGL_HEIGHT, (EGLint)height
@@ -143,7 +145,7 @@ WebGLRenderingContext::WebGLRenderingContext(
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
-
+  std::cout << "start 4"  << std::endl;
   //Set active
   if (!eglMakeCurrent(DISPLAY, surface, surface, context)) {
     std::cout << "error eglMakeCurrent"  << std::endl;
@@ -156,8 +158,12 @@ WebGLRenderingContext::WebGLRenderingContext(
   registerContext();
   ACTIVE = this;
 
+  std::cout << "start 5"  << std::endl;
+
   //Initialize function pointers
   initPointers();
+
+  std::cout << "start 6"  << std::endl;
 
   //Check extensions
   const char *extensionString = (const char*)((glGetString)(GL_EXTENSIONS));
@@ -172,6 +178,8 @@ WebGLRenderingContext::WebGLRenderingContext(
       return;
     }
   }
+
+  std::cout << "start 7"  << std::endl;
 
   //Select best preferred depth
   preferredDepth = GL_DEPTH_COMPONENT16;
