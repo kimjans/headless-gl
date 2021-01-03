@@ -71,18 +71,21 @@ WebGLRenderingContext::WebGLRenderingContext(
 
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-    std::cout << numDevices << std::end;
+    std::cout << numDevices << std::endl;
 
 
 
     DISPLAY = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if (DISPLAY == EGL_NO_DISPLAY) {
+      std::cout << "getDisplay"  << std::endl;
+
       state = GLCONTEXT_STATE_ERROR;
       return;
     }
 
     //Initialize EGL
     if (!eglInitialize(DISPLAY, NULL, NULL)) {
+      std::cout << "error initialize"  << std::endl;
       state = GLCONTEXT_STATE_ERROR;
       return;
     }

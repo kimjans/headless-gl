@@ -17,6 +17,9 @@
           'src/native/webgl.cc',
           'src/native/procs.cc'
       ],
+      'link_settings': {
+        "libraries": ["-lX11","-lEGL", "-lglut","-lGLEW"]
+      },
       'include_dirs': [
         "<!(node -e \"require('nan')\")",
         '<(module_root_dir)/deps/include',
@@ -48,7 +51,6 @@
         ['OS=="linux"', {
             'dependencies':
             [
-              'angle/src/angle.gyp:libEGL',
               'angle/src/angle.gyp:libGLESv2'
             ]
         }],
