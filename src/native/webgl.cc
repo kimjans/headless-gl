@@ -168,9 +168,12 @@ WebGLRenderingContext::WebGLRenderingContext(
   //Check extensions
   const char *extensionString = (const char*)((glGetString)(GL_EXTENSIONS));
 
+  std::cout << "start 6.5"  << extensionString << std::endl;
   //Load required extensions
   for(const char** rext = REQUIRED_EXTENSIONS; *rext; ++rext) {
     if(!strstr(extensionString, *rext)) {
+
+      std::cout << "for in" << rext <<  std::endl;
       dispose();
 
       std::cout << "error GLCONTEXT_STATE_ERROR"  << std::endl;
