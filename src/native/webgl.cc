@@ -54,28 +54,55 @@ WebGLRenderingContext::WebGLRenderingContext(
   if (!HAS_DISPLAY) {
 
     
-    PFNEGLQUERYDEVICEATTRIBEXTPROC eglQueryDeviceAttribEXT = (PFNEGLQUERYDEVICEATTRIBEXTPROC)eglGetProcAddress("eglQueryDeviceAttribEXT");
-
-    if (eglQueryDeviceAttribEXT)
-    {
-      std::cout << "has eglQueryDeviceAttribEXT" << std::endl;
-    }
-
     static const int MAX_DEVICES = 10;
-    EGLDeviceEXT eglDevs[MAX_DEVICES];
-    EGLint numDevices;
+      EGLDeviceEXT eglDevs[MAX_DEVICES];
+      EGLint numDevices;
 
-    PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT =
+      PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT =
         (PFNEGLQUERYDEVICESEXTPROC)
-            eglGetProcAddress("eglQueryDevicesEXT");
+        eglGetProcAddress("eglQueryDevicesEXT");
 
-    eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
+      eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-    std::cout << numDevices << std::endl;
+      std::cout << numDevices << std::endl;
+
+     PFNEGLQUERYDEVICEATTRIBEXTPROC eglQueryDeviceAttribEXT =  (PFNEGLQUERYDEVICEATTRIBEXTPROC)eglGetProcAddress("eglQueryDeviceAttribEXT");
+
+     if( eglQueryDeviceAttribEXT ){
+      std::cout << "eglQueryDeviceAttribEXT" << std::endl;
+
+     }
+
+     std::cout << "test" << std::endl;
+      
+      PFNEGLGETPLATFORMDISPLAYEXTPROC eglGetPlatformDisplayEXT =
+        (PFNEGLGETPLATFORMDISPLAYEXTPROC)
+        eglGetProcAddress("eglGetPlatformDisplayEXT");
+
+      
+     const char *extensions;
+     PFNEGLQUERYDEVICESTRINGEXTPROC query_device_string = (PFNEGLQUERYDEVICESTRINGEXTPROC) eglGetProcAddress("eglQueryDeviceStringEXT");
+
+      for(int i = 0 ; i < numDevices ; ++i){
+        const char* drm_device_file = query_device_string(eglDevs[i], EGL_EXTENSIONS );//EGL_DRM_DEVICE_FILE_EXT);
+        std::cout << i << std::endl;
+        if(drm_device_file ){
+         std::cout << "has name" << drm_device_file <<  std::endl;
+
+        }
+        EGLAttrib attrib;
+        if (eglQueryDeviceAttribEXT(eglDevs[i], EGL_CUDA_DEVICE_NV, &attrib)== EGL_FALSE)
+                            break;
+       std::cout << "attr" <<  attrib << std::endl;
+      }
+
+      std::cout << "test" << std::endl;
+      //EGLDisplay eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[4], 0);
+      DISPLAY = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT, eglDevs[0], 0);
 
 
+    //DISPLAY = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 
-    DISPLAY = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if (DISPLAY == EGL_NO_DISPLAY) {
       std::cout << "getDisplay"  << std::endl;
 
