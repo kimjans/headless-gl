@@ -53,6 +53,14 @@ WebGLRenderingContext::WebGLRenderingContext(
   //Get display
   if (!HAS_DISPLAY) {
 
+    
+    PFNEGLQUERYDEVICEATTRIBEXTPROC eglQueryDeviceAttribEXT = (PFNEGLQUERYDEVICEATTRIBEXTPROC)eglGetProcAddress("eglQueryDeviceAttribEXT");
+
+    if (eglQueryDeviceAttribEXT)
+    {
+      std::cout << "has eglQueryDeviceAttribEXT" << std::endl;
+    }
+
     static const int MAX_DEVICES = 10;
     EGLDeviceEXT eglDevs[MAX_DEVICES];
     EGLint numDevices;
@@ -63,7 +71,7 @@ WebGLRenderingContext::WebGLRenderingContext(
 
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
 
-    std::cout << numDevices << std::endl;
+    std::cout << numDevices << std::end
 
 
 
