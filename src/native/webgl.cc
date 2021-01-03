@@ -146,6 +146,7 @@ WebGLRenderingContext::WebGLRenderingContext(
 
   //Set active
   if (!eglMakeCurrent(DISPLAY, surface, surface, context)) {
+    std::cout << "error eglMakeCurrent"  << std::endl;
     state = GLCONTEXT_STATE_ERROR;
     return;
   }
