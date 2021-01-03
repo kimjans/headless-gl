@@ -98,8 +98,6 @@ WebGLRenderingContext::WebGLRenderingContext(
     HAS_DISPLAY = true;
   }
 
-  std::cout << "start 1" << std::endl;
-
   //Set up configuration
   EGLint attrib_list[] = {
       EGL_SURFACE_TYPE, EGL_PBUFFER_BIT, EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8, EGL_BLUE_SIZE, 8, EGL_ALPHA_SIZE, 8, EGL_DEPTH_SIZE, 24, EGL_STENCIL_SIZE, 8, EGL_NONE};
