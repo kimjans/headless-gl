@@ -18,7 +18,7 @@
           'src/native/procs.cc'
       ],
       'link_settings': {
-        "libraries": ["-lX11","-lEGL", "-lglut","-lGLEW"]
+        "libraries": ["-lEGL"]
       },
       'include_dirs': [
         "<!(node -e \"require('nan')\")",
